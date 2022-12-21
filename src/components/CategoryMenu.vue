@@ -22,11 +22,11 @@
 
 <script>
 
-import Pizza from '../assets/icons/pizza.svg'
-import Combo from '../assets/icons/french-fries.svg'
-import Deserts from '../assets/icons/ice-cream.svg'
-import Drinks from '../assets/icons/smothie.svg'
-import Burguer from '../assets/icons/food.svg'
+import Pizza from '@/assets/icons/pizza.svg'
+import Combo from '@/assets/icons/french-fries.svg'
+import Deserts from '@/assets/icons/ice-cream.svg'
+import Drinks from '@/assets/icons/smothie.svg'
+import Burguer from '@/assets/icons/food.svg'
 
 
 

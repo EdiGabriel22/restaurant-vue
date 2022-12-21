@@ -1,19 +1,15 @@
 <template>
-    <div>
-        <CategoryMenu/> 
-    </div>
+    <ul>
+        <li>        <router-link :to="{name: 'home'}">home</router-link></li>
+        <li>        <router-link :to="{name: 'about'}">about</router-link></li>
+
+    </ul>
+    <router-view/>
+
+
+
 </template>
 
-<script >
-import CategoryMenu from './components/CategoryMenu.vue';
-import HelloWorld from './components/HelloWorld.vue';
-
-
-    export default {
-        name: 'App',
-        components: {
-            HelloWorld,
-            CategoryMenu
-        }
-    }
+<script>
+import { RouterView, RouterLink} from 'vue-router'
 </script>
