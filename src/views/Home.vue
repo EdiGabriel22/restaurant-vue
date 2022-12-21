@@ -1,17 +1,18 @@
 <template>
-    <div>
-        <CategoryMenu/>
-        <h1>teste</h1>
+    <div class=" ">
+        <CategoryMenu />
+        <ItemListVue />
     </div>
 </template>
 
 <script>
-import CategoryMenu from '../components/CategoryMenu.vue';
+import CategoryMenu from '@/components/CategoryMenu.vue'
+import ItemListVue from '@/components/ItemList.vue'
 
 export default {
     name: 'Home',
     components: {
-        CategoryMenu
-    }
+        CategoryMenu,ItemListVue
+    },
 }
 </script>

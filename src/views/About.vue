@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h1>teste</h1>
         <CategoryMenu/>
         <h1>teste</h1>
     </div>

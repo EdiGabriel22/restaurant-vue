@@ -1,0 +1,63 @@
+{
+    "burguers" :[
+        {
+            "id": 1,
+            "name": "Duplo Burguer",
+            "description": "Pão, maiones, 2 carnes de 180g, alface, tomate, bacon e cebola roxa",
+            "price": 25.0,
+            "offer": true
+        },
+        {
+            "id": 2,
+            "name": "Triplo Burguer",
+            "description": "Pão, maiones, 3 carnes de 180g, alface, tomate, bacon e cebola roxa",
+            "price": 32.0,
+            "offer": true
+        },
+        {
+            "id": 3,
+            "name": "Chicken Burguer",
+            "description": "Pão, maionese, carne de frango, alface, tomate e queijo",
+            "price": 16.0,
+            "offer": false
+        },
+        {
+            "id": 4,
+            "name": "Kids Burguer",
+            "description": "Pão, maionese, 1 hamburguer de 180g e 1 fatia de quijo cheddar",
+            "price": 12.0,
+            "offer": false
+        },
+        {
+            "id": 5,
+            "name": "Duplo Burguer",
+            "description": "Pão, maiones, 2 carnes de 180g, alface, tomate, bacon e cebola roxa",
+            "price": 25.0,
+            "offer": true
+        },
+        {
+            "id": 6,
+            "name": "Triplo Burguer",
+            "description": "Pão, maiones, 3 carnes de 180g, alface, tomate, bacon e cebola roxa",
+            "price": 32.0,
+            "offer": true
+        },
+        {
+            "id": 7,
+            "name": "Chicken Burguer",
+            "description": "Pão, maionese, carne de frango, alface, tomate e queijo",
+            "price": 16.0,
+            "offer": false
+        },
+        {
+            "id": 8,
+            "name": "Kids Burguer",
+            "description": "Pão, maionese, 1 hamburguer de 180g e 1 fatia de quijo cheddar",
+            "price": 12.0,
+            "offer": false
+        }
+
+
+
+    ]
+}
