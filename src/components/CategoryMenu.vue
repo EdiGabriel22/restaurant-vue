@@ -1,5 +1,5 @@
 <template>
-    <div class=" md:w-32 md:h-screen flex items-center overflow-scroll	md:overflow-hidden bg-gray-50">
+    <div class=" col md:col-1 md:h-screen flex items-center overflow-scroll	md:overflow-hidden bg-gray-50">
         <ul class=" flex md:flex-col md:w-full  p-2 gap-3 ">
             <li 
                 class="flex md:w-full flex-col items-center justify-center cursor-pointer gap-1 w-20 p-2" 
@@ -8,7 +8,7 @@
                 @click="onCategoryClick(category.id)" 
                 :class="{ 'bg-secondary-300 rounded-lg': isActive(category.id) }"
             >
-                <component :is="category.icon"/>
+                <component :is="category.icon" class="stroke-gray-500" :class="{ 'stroke-dark-900 rounded-lg': isActive(category.id) }" />
                 <p 
                     class="text-gray-500 font-medium"
                     :class="{ 'text-dark-900 rounded-lg': isActive(category.id) }" 
@@ -40,14 +40,18 @@ export default {
                 { label: 'Combo', icon: 'Combo', id: 'combo' },
                 { label: 'Doces', icon: 'Deserts', id: 'deserts' },
                 { label: 'Bebidas', icon: 'Drinks', id: 'drinks' },
-                { label: 'Burguers', icon: 'Burguer', id: 'burguer' },
+                { label: 'Burguers', icon: 'Burguer', id: 'burguers' },
             ],
-            selectedCategory: 'pizza'
+            selectedCategory: ''
         }
     },
+    mounted() {
+        this.onCategoryClick('pizza')
+    },  
     methods: {
         onCategoryClick(id) {
             this.selectedCategory = id;
+            this.$store.dispatch('changeCategory', id)
         },
         isActive(id) {
             return this.selectedCategory === id;

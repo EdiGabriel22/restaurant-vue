@@ -69,5 +69,5 @@ module.exports = {
 			padding: '2rem',
 		},
 	},
-	plugins: [],
+	plugins: [require('tailwind-bootstrap-grid')()],
 }

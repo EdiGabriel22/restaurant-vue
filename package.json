@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "axios": "^1.2.1",
+    "es6-promise": "^4.2.8",
     "vue": "^3.2.45",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
+    "tailwind-bootstrap-grid": "^5.0.1",
     "tailwindcss": "^3.2.4",
     "vite": "^4.0.0",
     "vite-svg-loader": "^3.6.0"

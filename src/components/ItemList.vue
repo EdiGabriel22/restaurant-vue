@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap  gap-8 p-8">
+    <div class="md:col-11 p-6 md:p-14 flex flex-wrap">
         <Item
             v-for="item in itemsList"
             :key="item.id"
@@ -22,10 +22,25 @@ export default {
             itemsList: []
         }
     },  
-    created() {
-        axios.get('http://localhost:3000/burguers').then((response) => {
-            this.itemsList = response.data;
-        });
+    created() {},
+    computed: {
+        selectedCategory: {
+            get() {
+                return this.$store.state.selectedCategory;
+            }
+        }
+    },
+    methods: {
+        getItemsList() {
+            axios.get(`http://localhost:3000/${this.selectedCategory}`).then((response) => {
+                this.itemsList = response.data;
+            });
+        }
+    },
+    watch: {
+        selectedCategory() {
+            this.getItemsList();
+        }
     }
 }
 </script>
