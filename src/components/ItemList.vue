@@ -1,5 +1,6 @@
 <template>
     <div class="md:col-11 p-6 md:p-14 flex flex-wrap">
+        <Loading v-if="isLoading" />
         <Item
             v-for="item in itemsList"
             :key="item.id"
@@ -11,15 +12,18 @@
 <script>
 import axios from 'axios';
 import Item from './Item.vue';
+import Loading from '@/components/Loading.vue'
 
 export default {
     name: 'ItemsList',
     components: {
-        Item
+        Item,
+        Loading
     },
     data() {
         return {
-            itemsList: []
+            itemsList: [],
+            isLoading: false
         }
     },  
     created() {},
@@ -32,9 +36,14 @@ export default {
     },
     methods: {
         getItemsList() {
-            axios.get(`http://localhost:3000/${this.selectedCategory}`).then((response) => {
-                this.itemsList = response.data;
-            });
+            this.isLoading = true;
+            this.itemsList = [];
+            setTimeout( () => {
+                axios.get(`http://localhost:3000/${this.selectedCategory}`).then((response) => {
+                    this.itemsList = response.data;
+                    this.isLoading = false;
+                });
+            }, 2000)
         }
     },
     watch: {

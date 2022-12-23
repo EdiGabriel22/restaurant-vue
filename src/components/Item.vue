@@ -11,9 +11,11 @@
             alt=""
             class="block w-36 h-fit md:w-full"
         >
-        <div class="flex flex-col justify-between">
-            <h2 class="font-bold text-lg">{{ item.name }}</h2>
-            <p class="text-dark-500 font-light text-xs">{{ item.description }}</p>
+        <div class="col md:col-12 flex flex-col justify-between h-28	">
+            <div>
+                <h2 class="font-bold text-lg">{{ item.name }}</h2>
+                <p class="text-dark-500 font-light text-xs">{{ item.description }}</p>
+            </div>
             <p class="text-secondary-300 font-bold text-lg text-right">R$ {{ formatPrice(item.price) }} </p>
         </div>
     </div>

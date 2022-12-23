@@ -6,4 +6,16 @@ import store from './store/store.js'
 import 'es6-promise/auto'
 import '@/style.css'
 
-createApp(App).use(router).use(Vuex).use(store).mount('#app')
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faHatWizard,faPizzaSlice,faBurger,faIceCream, faWineBottle, faChampagneGlasses } from '@fortawesome/free-solid-svg-icons'
+
+
+
+
+
+
+library.add(faHatWizard,faPizzaSlice,faBurger,faIceCream,faWineBottle, faChampagneGlasses)
+
+
+createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(router).use(Vuex).use(store).mount('#app')
