@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>teste</h1>
-        <CategoryMenu/>
+        <CategoryMenu />
         <h1>teste</h1>
     </div>
 </template>

@@ -7,6 +7,7 @@ module.exports = {
 		"./index.html",
 		"./src/**/*.{vue,js,ts,jsx,tsx}",
 	],
+	plugins: [require('tailwind-bootstrap-grid')()],
 	theme: {
 		extend: {
 			colors: {
@@ -69,5 +70,4 @@ module.exports = {
 			padding: '2rem',
 		},
 	},
-	plugins: [require('tailwind-bootstrap-grid')()],
 }

@@ -1,11 +1,7 @@
 <template>
-    <div class="md:col-11 p-6 md:p-14 flex flex-wrap">
+    <div class="md:col-6  md:h-screen p-6 md:p-14 flex flex-wrap content-start">
         <Loading v-if="isLoading" />
-        <Item
-            v-for="item in itemsList"
-            :key="item.id"
-            :item="item"
-        />
+        <Item v-for="item in itemsList" :key="item.id" :item="item" />
     </div>
 </template>
 
@@ -25,25 +21,25 @@ export default {
             itemsList: [],
             isLoading: false
         }
-    },  
-    created() {},
+    },
+    created() {
+        this.getItemsList()
+    },
     computed: {
-        selectedCategory: {
-            get() {
-                return this.$store.state.selectedCategory;
-            }
+        selectedCategory() {
+            return this.$store.state.selectedCategory;
         }
     },
     methods: {
         getItemsList() {
             this.isLoading = true;
             this.itemsList = [];
-            setTimeout( () => {
+            setTimeout(() => {
                 axios.get(`http://localhost:3000/${this.selectedCategory}`).then((response) => {
                     this.itemsList = response.data;
                     this.isLoading = false;
                 });
-            }, 2000)
+            }, 500)
         }
     },
     watch: {
