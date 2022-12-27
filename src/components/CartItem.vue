@@ -9,15 +9,7 @@
                 <a href="" class="font-medium text-xs text-gray-400">Adicionar Observação</a>
             </div>
         </div>
-        <div class="flex gap-2 items-center mx-5 md:order-1">
-            <button @click="decreaseQuantity(item.id)" :disabled="item.quantity == 1">
-                <font-awesome-icon icon="fa-minus" />
-            </button>
-            <span class="font-normal text-lg text-secondary-200 w-3">{{ item.quantity }}</span>
-            <button @click="increaseQuantity(item.id)">
-                <font-awesome-icon icon="fa-plus" />
-            </button>
-        </div>
+        <Quantity :item="item"/>
         <p class="text-secondary-200 font-bold text-lg text-right ml-3 md:order-3 grow">
             R$ {{ formatPrice(item.price) }}
         </p>
@@ -25,6 +17,7 @@
 </template>
 
 <script>
+import Quantity from './Quantity.vue'
 import { mapActions } from 'vuex'
 
 export default {
@@ -46,6 +39,9 @@ export default {
         imagePath() {
             return (`../src/assets/images/${this.item.id}.png`);
         }
+    },
+    components: {
+        Quantity
     }
 }
 </script>

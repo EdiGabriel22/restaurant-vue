@@ -17,8 +17,13 @@
 </template>
 
 <script>
+import router from '../plugins/router'
+import Mixin from '@/mixins/mixins.js'
+
+
 export default {
     name: 'Item',
+    mixins: [Mixin],
     props: {
         item: {}
     },
@@ -29,6 +34,10 @@ export default {
         },
         addToCart() {
             this.$store.dispatch('addToCart', this.item)
+
+            if(this.isDesktop()) return;
+            
+            router.push({ name: 'AddToCart', params: { id: this.item.id }})
         }
     },
     computed: {

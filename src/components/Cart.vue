@@ -2,7 +2,7 @@
     <div class="bg-gray-50 h-screen w-full p-6 md:p-16 gap-3 overflow-y-hidden">
         <RouterLink to="/" class="font-bold text-xl md:hidden">← Voltar</RouterLink>
         <h2 class="font-bold text-2xl my-8">Seu Pedido</h2>
-        <p v-show="cartList.lenght">Seu Carrinho ainda está vazio</p>
+        <p v-if="hasNoItem">Seu Carrinho ainda está vazio</p>
 
         <div class="overflow-y-auto h-3/4 mb-9">
             <CartItem  v-for="item in cartList" :key="item.id" :item="item" />
@@ -37,6 +37,9 @@ export default {
         ]),
         cartList() {
             return this.$store.state.cartList;
+        },
+        hasNoItem() {
+            return this.cartList.lenght
         }
     }
 }
