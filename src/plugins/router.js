@@ -5,7 +5,7 @@ import AddToCart from '@/components/AddToCart.vue'
 
 const routes = [
 	{
-		path: '',
+		path: '/',
 		name: 'Home',
 		component: Home,
 	},

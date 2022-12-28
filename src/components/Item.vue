@@ -1,6 +1,6 @@
 <template>
     <div @click="addToCart"
-        class=" bg-gray-50 w-full h-40 md:w-56 md:h-80 p-3 md:p-5 rounded-xl relative my-5 md:m-5 border-2 border-gray-200 items-center  md:flex-col flex justify-between">
+        class=" bg-gray-50 w-full h-40 md:w-56 md:h-80 p-3 md:p-5 rounded-xl relative my-5 md:m-5 border-2 border-gray-200 items-center md:flex-col flex justify-between">
         <div class="bg-primary-500 rounded-lg text-white text-xs font-medium w-14 p-1 flex justify-center absolute -top-3 -right-4"
             v-if="item.offer">
             OFERTA
@@ -35,9 +35,9 @@ export default {
         addToCart() {
             this.$store.dispatch('addToCart', this.item)
 
-            if(this.isDesktop()) return;
-            
-            router.push({ name: 'AddToCart', params: { id: this.item.id }})
+            if (this.isDesktop()) return;
+
+            router.push({ name: 'AddToCart', params: { id: this.item.id } })
         }
     },
     computed: {
