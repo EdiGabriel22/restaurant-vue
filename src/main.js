@@ -18,6 +18,7 @@ import {
 	faPlus,
 	faMinus,
 	faCartShopping,
+	faX
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -29,7 +30,8 @@ library.add(
 	faChampagneGlasses,
 	faPlus,
 	faMinus,
-	faCartShopping
+	faCartShopping,
+	faX
 );
 
 createApp(App)
