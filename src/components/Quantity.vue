@@ -11,7 +11,7 @@
             <div class="">
                 <h2 class="font-bold text-xl mb-8">Deseja remover esse item do carrinho?</h2>
                 <div class="md:flex  gap-4 text-white font-bold">
-                    <button @click="onCancelButtonClick" class="bg-gray-100 px-4 py-2 rounded-lg text-dark-900 w-full mb-4">Cancelar</button>
+                    <button @click="onCancelButtonClick" class="bg-gray-100 px-4 py-2 rounded-lg text-dark-900 w-full mb-4 md:mb-0">Cancelar</button>
                     <button @click="onRemoveButtonClick" class="bg-primary-500 px-4 py-2 rounded-lg w-full">Sim, remover</button>
                 </div>
             </div>
