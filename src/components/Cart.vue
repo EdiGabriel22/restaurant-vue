@@ -11,7 +11,7 @@
                 <span class="text-lg font-semibold mr-2">Total:</span>
                 <span class="text-lg font-semibold text-secondary-200">R$ {{ formatPrice(getCartTotal) }}</span>
             </div>
-            <button @click="goToPayment" class="w-full p-3 bg-primary-500 rounded-lg  text-white font-medium" >Finalizar Compra</button>
+            <button @click="goToPayment" class="w-full mt-12 p-3 bg-primary-500 rounded-lg  text-white font-medium" >Finalizar Compra</button>
         </div>
     </div>
 </template>
