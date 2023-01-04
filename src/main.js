@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 import store from './store/store.js';
 import 'es6-promise/auto';
 import '@/style.css';
+import VueMask from '@devindex/vue-mask';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -37,9 +38,12 @@ library.add(
 
 );
 
+
+
 createApp(App)
 	.component('font-awesome-icon', FontAwesomeIcon)
 	.use(router)
 	.use(Vuex)
+	.use(VueMask)
 	.use(store)
 	.mount('#app');

@@ -6,8 +6,8 @@
             </div>
             <div class="">
                 <h3 class="font-semibold text-lg">{{ item.name }}</h3>
-                <a @click="onshowObservationModal" class="font-medium text-xs text-gray-400 cursor-pointer">Adicionar
-                    Observação
+                <a @click="onshowObservationModal" class="font-medium text-xs text-gray-400 cursor-pointer">
+                    Adicionar Observação
                 </a>
                 <p class="font-medium text-xs text-gray-400">{{ item.observations }}</p>
             </div>
@@ -16,11 +16,10 @@
         <p class="text-secondary-200 font-bold text-lg text-right ml-3 md:order-3 grow">
             R$ {{ formatPrice(item.price) }}
         </p>
-        <Modal :show="showObeservationModal" @on-modal-close="onCloseObservationModal">
+        <Modal :show="showObservationModal" @on-modal-close="onCloseObservationModal">
             <div>
                 <h1 class="font-semibold text-xl mr-6 mb-6">Adicionar observação</h1>
-                <textarea v-model="item.observations" class="w-full border-2 border-gray-200 rounded-md bg-gray-50 p-2"
-                    rows="10"></textarea>
+                <textarea v-model="item.observations" class="w-full border-2 border-gray-200 rounded-md bg-gray-50 p-2" rows="10"></textarea>
                 <div class="md:flex  gap-4 text-white font-bold mt-4">
                     <button @click="onCloseObservationModal"
                         class="bg-gray-100 px-4 py-2 rounded-lg text-dark-900 w-full mb-4 md:m-0">Cancelar</button>
@@ -44,7 +43,7 @@ export default {
     },
     data() {
         return {
-            showObeservationModal: false
+            showObservationModal: false
         }
     },
     methods: {
@@ -57,14 +56,14 @@ export default {
             'decreaseQuantity'
         ]),
         onshowObservationModal() {
-            this.showObeservationModal = true
+            this.showObservationModal = true
         },
         onCloseObservationModal() {
-            this.showObeservationModal = false
+            this.showObservationModal = false
         },
         saveObservation() {
             this.$store.dispatch('addObservation', this.item);
-            this.showObeservationModal = false
+            this.showObservationModal = false
         }
     },
     computed: {
