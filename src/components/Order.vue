@@ -122,6 +122,7 @@ import Modal from './Modal.vue';
 
 export default {
     data() {
+        // não é lenght é LENGTH
         return {
             formData: {
                 name: {
