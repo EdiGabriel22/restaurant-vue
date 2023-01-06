@@ -7,7 +7,7 @@
             <transition-group name="list" tag="div" class="overflow-y-auto h-3/5 mb-9">
                 <CartItem  v-for="item in cartList" :key="item.id" :item="item" />
             </transition-group>
-            <div class="text-right" v-if="!cartList.lenght">
+            <div class="text-right" v-if="!cartList.length">
                 <span class="text-lg font-semibold mr-2">Total:</span>
                 <span class="text-lg font-semibold text-secondary-200">R$ {{ formatPrice(getCartTotal) }}</span>
             </div>
@@ -47,7 +47,7 @@ export default {
             return this.$store.state.cartList;
         },
         hasNoItem() {
-            return this.cartList.lenght
+            return this.cartList.length
         }
     }
 }

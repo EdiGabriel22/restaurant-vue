@@ -60,7 +60,7 @@
                     <label for="" class="text-lg font-semibold">{{ formData.cep.label }}</label>
                     <input 
                         type="text" 
-                        :class="{ 'border-red-500' : formData.cep.valid}"
+                        :class="{ 'border-red-500' : !formData.cep.valid}"
                         :placeholder="formData.cep.placeholder"
                         v-model="formData.cep.value"
                         @blur="formData.cep.isValid()" 
@@ -72,7 +72,7 @@
                     <label for="" class="text-lg font-semibold">{{ formData.city.label }}</label>
                     <input 
                         type="text" 
-                        :class="{ 'border-red-500' : formData.city.valid}"
+                        :class="{ 'border-red-500' : !formData.city.valid}"
                         :placeholder="formData.city.placeholder"
                         v-model="formData.city.value"
                         @blur="formData.city.isValid()" 
@@ -86,13 +86,13 @@
                         <label for="" class="text-lg font-semibold">{{ formData.street.label }}</label>
                         <input 
                             type="text" 
-                            :class="{ 'border-red-500' : formData.street.valid}"
+                            :class="{ 'border-red-500' : !formData.street.valid}"
                             :placeholder="formData.street.placeholder"
                             v-model="formData.street.value"
                             @blur="formData.street.isValid()" 
                             class="w-full p-2 rounded-md border-2 mt-2"
                         >
-                        <p v-if="formData.street.valid" class="text-red-500 text-sm mt-1">{{formData.street.errorMessage}}</p>
+                        <p v-if="formData.street.valid" class="text-red-500 text-sm mt-1">{{!formData.street.errorMessage}}</p>
                     </div>
                     <div class="col">
                         <label for="" class="text-lg font-semibold">{{ formData.number.label }}</label>
@@ -122,7 +122,6 @@ import Modal from './Modal.vue';
 
 export default {
     data() {
-        // não é lenght é LENGTH
         return {
             formData: {
                 name: {
@@ -132,7 +131,7 @@ export default {
                     label: 'Nome*',
                     valid: true,
                     isValid: () => {
-                        this.formData.name.valid = !!this.formData.name.value.lenght;
+                        this.formData.name.valid = !!this.formData.name.value.length;
                     }
                 },
                 cellphone: {
@@ -142,7 +141,7 @@ export default {
                     label: 'Celular*',
                     valid: true,
                     isValid: () => {
-                        this.formData.cellphone.valid = !!this.formData.cellphone.value.lenght === 16;
+                        this.formData.cellphone.valid = !!this.formData.cellphone.value.length === 16;
                     }
                 },
                 cep: {
@@ -152,7 +151,7 @@ export default {
                     label: 'CEP*',
                     valid: true,
                     isValid: () => {
-                        this.formData.cep.valid = !!this.formData.cep.value.lenght;
+                        this.formData.cep.valid = !!this.formData.cep.value.length;
                     }
                 },
                 city: {
@@ -162,7 +161,7 @@ export default {
                     label: 'Cidade*',
                     valid: true,
                     isValid: () => {
-                        this.formData.city.valid = !!this.formData.city.value.lenght;
+                        this.formData.city.valid = !!this.formData.city.value.length;
                     }
                 },
                 street: {
@@ -172,7 +171,7 @@ export default {
                     label: 'Rua*',
                     valid: true,
                     isValid: () => {
-                        this.formData.street.valid = !!this.formData.street.value.lenght;
+                        this.formData.street.valid = !!this.formData.street.value.length;
                     }
                 },
                 number: {
@@ -182,7 +181,7 @@ export default {
                     label: 'Número*',
                     valid: true,
                     isValid: () => {
-                        this.formData.number.valid = this.formData.number.value.lenght;
+                        this.formData.number.valid = this.formData.number.value.length;
                     }
                 },
                 

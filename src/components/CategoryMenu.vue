@@ -1,15 +1,13 @@
 <template>
-    <div class=" col md:col-1 md:h-screen flex items-center overflow-scroll	md:overflow-hidden bg-gray-50 sticky top-0 z-10">
+    <div
+        class=" col md:col-1 md:h-screen flex items-center overflow-scroll	md:overflow-hidden bg-gray-50 sticky top-0 z-10">
         <ul class=" flex md:flex-col md:w-full  p-3 gap-3 ">
             <li class="flex md:w-full flex-col items-center justify-center cursor-pointer gap-2 w-20 p-3 rounded-lg hover:bg-gray-100 "
                 v-for="category in categoriesList" :key="category.id" @click="onCategoryClick(category.id)"
                 :class="{ 'bg-secondary-200 rounded-lg hover:bg-secondary-200': isActive(category.id) }">
-                <font-awesome-icon
-                    class="text-gray-500 fa-2xl"
-                    :icon="category.icon"
-                    :class="{ 'text-dark-900 fa-regular': isActive(category.id) }" 
-                />
-                <p class="text-gray-500 font-medium" :class="{ 'text-dark-900 rounded-lg': isActive(category.id) }">
+                <font-awesome-icon class="text-gray-500 fa-2xl" :icon="category.icon"
+                    :class="{ 'text-gray-900 fa-regular': isActive(category.id) }" />
+                <p class="text-gray-500 font-medium" :class="{ 'text-gray-900 rounded-lg': isActive(category.id) }">
                     {{ category.label }}
                 </p>
             </li>
