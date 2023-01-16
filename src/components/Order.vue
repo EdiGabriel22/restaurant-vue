@@ -7,19 +7,19 @@
                     <label for="" class="text-lg font-semibold">{{ formData.name.label }}</label>
                     <input 
                         type="text" 
-                        :class="{ 'border-red-500' : formData.name.valid}"
+                        :class="{ 'border-red-500' : !formData.name.valid}"
                         :placeholder="formData.name.placeholder"
                         v-model="formData.name.value"
                         @blur="formData.name.isValid()" 
                         class="w-full p-2 rounded-md border-2 mt-2"
                     >
-                    <p v-if="formData.name.valid" class="text-red-500 text-sm mt-1">{{formData.name.errorMessage}}</p>
+                    <p v-if="!formData.name.valid" class="text-red-500 text-sm mt-1">{{formData.name.errorMessage}}</p>
                 </div>
                 <div>
                     <label for="" class="text-lg font-semibold">{{ formData.cellphone.label }}</label>
                     <input 
                         type="text" 
-                        :class="{ 'border-red-500' : formData.cellphone.valid}" 
+                        :class="{ 'border-red-500' : !formData.cellphone.valid}" 
                         :placeholder="formData.cellphone.placeholder" 
                         maxlength = "16"
                         v-mask="'(##) # ####-####'"
@@ -27,7 +27,7 @@
                         @blur="formData.cellphone.isValid()" 
                         class="w-full p-2 rounded-md border-2 mt-2"
                     >
-                    <p v-if="formData.cellphone.valid" class="text-red-500 text-sm mt-1">{{formData.cellphone.errorMessage}}</p>
+                    <p v-if="!formData.cellphone.valid" class="text-red-500 text-sm mt-1">{{formData.cellphone.errorMessage}}</p>
                 </div>
 
             </div>
@@ -43,7 +43,12 @@
                         <label for="delivery">Delivery</label>
                     </div>
                 </div>
-                <p class="cursor-pointer text-primary-500" @click="showAddressModal" v-if="isDeliveryType">Adicionar endereço</p>
+                <div class="border-2 p-4 rounded-lg w-fit" v-if="isDeliveryType && hasAddressInfo && savedAddress">
+                    <p>{{ formData.street.value }}, {{ formData.number.value }}  </p>
+                    <p>{{ formData.city.value }} - {{ formData.cep.value }}  </p>
+                </div>
+                <a class="cursor-pointer text-primary-500" @click="showAddressModal" v-if="isDeliveryType">{{addresButtonLabel}}
+                </a>
             </div>
         </form>
         <button 
@@ -66,7 +71,7 @@
                         @blur="formData.cep.isValid()" 
                         class="w-full p-2 rounded-md border-2 mt-2"
                     >
-                    <p v-if="formData.cep.valid" class="text-red-500 text-sm mt-1">{{formData.cep.errorMessage}}</p>
+                    <p v-if="!formData.cep.valid" class="text-red-500 text-sm mt-1">{{formData.cep.errorMessage}}</p>
                 </div>
                 <div>
                     <label for="" class="text-lg font-semibold">{{ formData.city.label }}</label>
@@ -78,7 +83,7 @@
                         @blur="formData.city.isValid()" 
                         class="w-full p-2 rounded-md border-2 mt-2"
                     >
-                    <p v-if="formData.city.valid" class="text-red-500 text-sm mt-1">{{formData.city.errorMessage}}</p>
+                    <p v-if="!formData.city.valid" class="text-red-500 text-sm mt-1">{{formData.city.errorMessage}}</p>
                 </div>
 
                 <div class="flex gap-2">
@@ -92,19 +97,19 @@
                             @blur="formData.street.isValid()" 
                             class="w-full p-2 rounded-md border-2 mt-2"
                         >
-                        <p v-if="formData.street.valid" class="text-red-500 text-sm mt-1">{{!formData.street.errorMessage}}</p>
+                        <p v-if="!formData.street.valid" class="text-red-500 text-sm mt-1">{{!formData.street.errorMessage}}</p>
                     </div>
                     <div class="col">
                         <label for="" class="text-lg font-semibold">{{ formData.number.label }}</label>
                         <input 
                             type="text" 
-                            :class="{ 'border-red-500' : formData.number.valid}"
+                            :class="{ 'border-red-500' : !formData.number.valid}"
                             :placeholder="formData.number.placeholder"
                             v-model="formData.number.value"
                             @blur="formData.number.isValid()" 
                             class="w-full p-2 rounded-md border-2 mt-2"
                         >
-                        <p v-if="formData.number.valid" class="text-red-500 text-sm mt-1">{{formData.number.errorMessage}}</p>
+                        <p v-if="!formData.number.valid" class="text-red-500 text-sm mt-1">{{formData.number.errorMessage}}</p>
                     </div>
                     
                 </div>
@@ -141,7 +146,7 @@ export default {
                     label: 'Celular*',
                     valid: true,
                     isValid: () => {
-                        this.formData.cellphone.valid = !!this.formData.cellphone.value.length === 16;
+                        this.formData.cellphone.valid = this.formData.cellphone.value.length === 16;
                     }
                 },
                 cep: {
@@ -181,34 +186,33 @@ export default {
                     label: 'Número*',
                     valid: true,
                     isValid: () => {
-                        this.formData.number.valid = this.formData.number.value.length;
+                        this.formData.number.valid = !!this.formData.number.value.length;
                     }
                 },
                 
             },
             AddressModal: false,
-            deliveryType: 'delivery'
+            deliveryType: 'store',
+            savedAddress: false
         }
     },  
     computed: {
         isAddressFormValid() {
             let isValid = true
-            isValid &= this.formData.cep.Valid();
-            isValid &= this.formData.city.Valid();
-            isValid &= this.formData.street.Valid();
-            isValid &= this.formData.number.Valid();
+            isValid &= this.formData.cep.valid;
+            isValid &= this.formData.city.valid;
+            isValid &= this.formData.street.valid;
+            isValid &= this.formData.number.valid;
             return isValid;
         },
         isDeliveryType() {
             return this.deliveryType === 'delivery'
         },
-        hasAddressInfo() {
-            let hasInfo = true
-            
-            hasInfo &= this.formData.cep.value;
-            hasInfo &= this.formData.city.value;
-            hasInfo &= this.formData.street.value;
-            hasInfo &= this.formData.number.value;
+        hasAddressInfo() {  
+            return this.formData.cep.value || this.formData.city.value || this.formData.street.value || this.formData.number.value
+        },
+        addresButtonLabel() {
+            return this.hasAddressInfo ? 'Editar endereço' : 'Adicionar Endereço'
         }
     },  
     methods: {
@@ -233,7 +237,9 @@ export default {
         },
         validateAddressForm() {
             this.triggerAddressFormValidations();
-            this.AddressModal = false
+            if(!this.isAddressFormValid) return;
+            this.savedAddress = false
+            this.showAddressModal = false
         }
     },
     components: {
