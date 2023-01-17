@@ -1,138 +1,180 @@
 <template>
-    <div class="p-4">
-        <form action="" class="flex flex-col gap-12">
-            <div>
-                <p class="text-2xl font-bold mb-8">Seus dados</p>
-                <div>
-                    <label for="" class="text-lg font-semibold">{{ formData.name.label }}</label>
-                    <input 
-                        type="text" 
-                        :class="{ 'border-red-500' : !formData.name.valid}"
+    <div class="bg-white p-4 m-4 rounded-lg">
+        <form class="flex-col flex gap-4">
+            <div class="flex flex-col gap-3">
+                <p class="font-bold text-xl mb-4">Seus dados</p>
+                <div class="flex flex-col gap-1">
+                    <label class="font-semibold" for="">{{ formData.name.label }}</label>
+                    <input
+                        class="border-2 rounded-lg p-1"
+                        type="text"
                         :placeholder="formData.name.placeholder"
                         v-model="formData.name.value"
-                        @blur="formData.name.isValid()" 
-                        class="w-full p-2 rounded-md border-2 mt-2"
-                    >
-                    <p v-if="!formData.name.valid" class="text-red-500 text-sm mt-1">{{formData.name.errorMessage}}</p>
+                        @blur="formData.name.isValid()"
+                        :class="{ 'border-red-500' : !formData.name.valid }"
+                    />
+                    <p class="text-red-500" v-if="!formData.name.valid">{{ formData.name.errorMessage }}</p>
                 </div>
-                <div>
-                    <label for="" class="text-lg font-semibold">{{ formData.cellphone.label }}</label>
-                    <input 
-                        type="text" 
-                        :class="{ 'border-red-500' : !formData.cellphone.valid}" 
-                        :placeholder="formData.cellphone.placeholder" 
-                        maxlength = "16"
+                <div  class="flex flex-col gap-1">
+                    <label class="font-semibold" for="">{{ formData.cellphone.label }}</label>
+                    <input
+                        class="border-2 rounded-lg p-1"
+                        type="text"
+                        :placeholder="formData.cellphone.placeholder"
                         v-mask="'(##) # ####-####'"
-                        v-model="formData.cellphone.value" 
-                        @blur="formData.cellphone.isValid()" 
-                        class="w-full p-2 rounded-md border-2 mt-2"
-                    >
-                    <p v-if="!formData.cellphone.valid" class="text-red-500 text-sm mt-1">{{formData.cellphone.errorMessage}}</p>
+                        v-model="formData.cellphone.value"
+                        @blur="formData.cellphone.isValid()"
+                        :class="{ 'border-red-500' : !formData.cellphone.valid }"
+                    />
+                    <p class="text-red-500" v-if="!formData.cellphone.valid">{{ formData.cellphone.errorMessage }}</p>
                 </div>
-
             </div>
-            <div>
-                <p class="text-2xl font-bold mb-6">Endereço</p>
-                <div class="flex gap-4 mb-4">
-                    <div class="gap-2 flex ">
-                        <input type="radio" name="" id="store" value="store" v-model="deliveryType">
+
+            <div class="">
+                <p class="font-bold text-xl mb-4">Endereço</p>
+                <div class="flex gap-2">
+                    <div>
+                        <input type="radio" name="delivery-type" id="store" value="store" v-model="deliveryType" />
                         <label for="store">Retirar na loja</label>
                     </div>
-                    <div class="gap-2 flex ">
-                        <input type="radio" name="" id="delivery" value="delivery" v-model="deliveryType">
+
+                    <div class="">
+                        <input
+                            type="radio"
+                            name="delivery-type"
+                            id="delivery"
+                            value="delivery"
+                            v-model="deliveryType"
+                        />
                         <label for="delivery">Delivery</label>
                     </div>
                 </div>
-                <div class="border-2 p-4 rounded-lg w-fit" v-if="isDeliveryType && hasAddressInfo && savedAddress">
-                    <p>{{ formData.street.value }}, {{ formData.number.value }}  </p>
-                    <p>{{ formData.city.value }} - {{ formData.cep.value }}  </p>
+
+                <div class="border w-fit p-3 rounded-lg my-4" v-if="isDeliveryType && hasAddressInfo && savedAddress">
+                    <p>{{ formData.city.value }} - {{ formData.cep.value }}</p>
+                    <p>{{ formData.street.value }}, {{ formData.number.value }}</p>
                 </div>
-                <a class="cursor-pointer text-primary-500" @click="showAddressModal" v-if="isDeliveryType">{{addresButtonLabel}}
-                </a>
+
+                <a class="text-primary-500" @click="onShowAddressModal" v-if="isDeliveryType">{{ addressButtonLabel }}</a>
+            </div>
+
+            <div class="">
+                <p class="font-bold text-xl mb-4">Pagamento</p>
+                <p class="font-semibold mb-2">Método de pagamento:</p>
+                <div class="flex gap-2">
+                    <div class="">
+                        <input
+                            type="radio"
+                            name="payment-type"
+                            id="credit-card"
+                            value="credit-card"
+                            v-model="paymentType"
+                        />
+                        <label for="credit-card">Cartão</label>
+                    </div>
+                    <div class="">
+                        <input type="radio" name="payment-type" id="cash" value="cash" v-model="paymentType" />
+                        <label for="cash">Dinheiro</label>
+                    </div>
+                </div>
             </div>
         </form>
-        <button 
-            @click="orderItens" 
-            class="w-full mt-12 p-3 bg-primary-500 rounded-lg text-white font-medium"
-        >
-            Concluir pagamento
-        </button>
+        <button class="bg-primary-500 my-4 px-4 py-2 rounded-lg w-full text-white font-bold" @click="orderItens">Concluir pedido</button>
 
-        <Modal :show="AddressModal" @on-modal-close="hideShowModal">
-            <div class="flex flex-col gap-6">
-                <h1 class="text-2xl font-bold">Adicionar endereço</h1>
-                <div>
-                    <label for="" class="text-lg font-semibold">{{ formData.cep.label }}</label>
-                    <input 
-                        type="text" 
-                        :class="{ 'border-red-500' : !formData.cep.valid}"
+        <Modal :show="showAddressModal" @on-modal-close="hideAddressModal">
+            <div class="flex flex-col gap-5">
+                <h1 class="font-bold text-xl mb-4">Adicionar endereço</h1>
+                <div  class="flex flex-col gap-1">
+                    <label class="font-semibold" for="">{{ formData.cep.label }}</label>
+                    <input
+                        class="border-2 rounded-lg p-1 w-80"
+                        type="text"
                         :placeholder="formData.cep.placeholder"
                         v-model="formData.cep.value"
-                        @blur="formData.cep.isValid()" 
-                        class="w-full p-2 rounded-md border-2 mt-2"
-                    >
-                    <p v-if="!formData.cep.valid" class="text-red-500 text-sm mt-1">{{formData.cep.errorMessage}}</p>
-                </div>
-                <div>
-                    <label for="" class="text-lg font-semibold">{{ formData.city.label }}</label>
-                    <input 
-                        type="text" 
-                        :class="{ 'border-red-500' : !formData.city.valid}"
-                        :placeholder="formData.city.placeholder"
-                        v-model="formData.city.value"
-                        @blur="formData.city.isValid()" 
-                        class="w-full p-2 rounded-md border-2 mt-2"
-                    >
-                    <p v-if="!formData.city.valid" class="text-red-500 text-sm mt-1">{{formData.city.errorMessage}}</p>
+                        @blur="formData.cep.isValid()"
+                        :class="{ error: !formData.cep.valid }"
+                    />
+                    <p class="text-red-500" v-if="!formData.cep.valid">{{ formData.cep.errorMessage }}</p>
                 </div>
 
-                <div class="flex gap-2">
-                    <div class="col-8">
-                        <label for="" class="text-lg font-semibold">{{ formData.street.label }}</label>
-                        <input 
-                            type="text" 
-                            :class="{ 'border-red-500' : !formData.street.valid}"
+                <div  class="flex flex-col gap-1">
+                    <label class="font-semibold" for="">{{ formData.city.label }}</label>
+                    <input
+                        class="border-2 rounded-lg p-1 w-80"
+                        type="text"
+                        :placeholder="formData.city.placeholder"
+                        v-model="formData.city.value"
+                        @blur="formData.city.isValid()"
+                        :class="{ error: !formData.city.valid }"
+                    />
+                    <p class="text-red-500" v-if="!formData.city.valid">{{ formData.city.errorMessage }}</p>
+                </div>
+
+                <div class="flex flex-col gap-5">
+                    <div  class="flex flex-col gap-1">
+                        <label class="font-semibold" for="">{{ formData.street.label }}</label>
+                        <input
+                            class="border-2 rounded-lg p-1 w-80"
+                            type="text"
                             :placeholder="formData.street.placeholder"
                             v-model="formData.street.value"
-                            @blur="formData.street.isValid()" 
-                            class="w-full p-2 rounded-md border-2 mt-2"
-                        >
-                        <p v-if="!formData.street.valid" class="text-red-500 text-sm mt-1">{{!formData.street.errorMessage}}</p>
+                            @blur="formData.street.isValid()"
+                            :class="{ error: !formData.street.valid }"
+                        />
+                        <p class="text-red-500" v-if="!formData.street.valid">{{ formData.street.errorMessage }}</p>
                     </div>
-                    <div class="col">
-                        <label for="" class="text-lg font-semibold">{{ formData.number.label }}</label>
-                        <input 
-                            type="text" 
-                            :class="{ 'border-red-500' : !formData.number.valid}"
+
+                    <div  class="flex flex-col gap-1">
+                        <label class="font-semibold" for="">{{ formData.number.label }}</label>
+                        <input
+                            class="border-2 rounded-lg p-1 w-80"
+                            type="text"
                             :placeholder="formData.number.placeholder"
                             v-model="formData.number.value"
-                            @blur="formData.number.isValid()" 
-                            class="w-full p-2 rounded-md border-2 mt-2"
-                        >
-                        <p v-if="!formData.number.valid" class="text-red-500 text-sm mt-1">{{formData.number.errorMessage}}</p>
+                            @blur="formData.number.isValid()"
+                            :class="{ error: !formData.number.valid }"
+                        />
+                        <p class="text-red-500" v-if="!formData.number.valid">{{ formData.number.errorMessage }}</p>
                     </div>
-                    
                 </div>
-                <div class="md:flex  gap-4 text-white font-bold mt-4">
-                    <button @click="hideShowModal" class="bg-gray-100 px-4 py-2 rounded-lg text-dark-900 w-full mb-4 md:m-0">Cancelar</button>
-                    <button @click="validateAddressForm" class="bg-primary-500 px-4 py-2 rounded-lg w-full">Salvar</button>
+
+                <div class="flex flex-col gap-2">
+                    <button  class="bg-primary-500  px-4 py-2 rounded-lg w-full text-white font-bold" @click="validateAddressForm">Adicionar</button>
+                    <button  class="bg-gray-300  px-4 py-2 rounded-lg w-full text-white font-bold" @click="hideAddressModal">Cancelar</button>
                 </div>
+            </div>
+        </Modal>
+
+        <Modal :show="showInvalidAddressModal" @on-modal-close="hideInvalidAddressModal">
+            <div class="flex flex-col">
+                <font-awesome-icon icon="fa-circle-exclamation" class="mb-6 cursor-pointer fa-2xl text-red-500"/>
+                <span class="text-center font-semibold">Na modalidade delivery é necessário adicionar um endereço válido.</span>
+            </div>
+        </Modal>
+
+        <Modal :show="showSuccessModal" @on-modal-close="hideSuccessModal">
+            <div class="flex flex-col">
+                <font-awesome-icon icon="fa-check" class="mb-6 cursor-pointer fa-2xl text-green-500"/>
+                <span class="text-center font-semibold">Pedido realizado com sucesso!</span>
             </div>
         </Modal>
     </div>
 </template>
 
 <script>
-import Modal from './Modal.vue';
+import Modal from '../components/Modal.vue';
 
 export default {
+    components: {
+        Modal
+    },
     data() {
         return {
             formData: {
                 name: {
-                    errorMessage: 'O nome é obrigatório',
-                    placeholder: 'Digite o seu nome' ,
                     value: '',
+                    placeholder: 'Digite seu nome',
+                    errorMessage: 'O nome é obrigatório',
                     label: 'Nome*',
                     valid: true,
                     isValid: () => {
@@ -140,9 +182,9 @@ export default {
                     }
                 },
                 cellphone: {
-                    errorMessage: 'O celular é obrigatório',
-                    placeholder: 'Digite seu celular' , 
                     value: '',
+                    placeholder: 'Digite seu celular',
+                    errorMessage: 'O celular é obrigatório',
                     label: 'Celular*',
                     valid: true,
                     isValid: () => {
@@ -150,9 +192,9 @@ export default {
                     }
                 },
                 cep: {
-                    errorMessage: 'O CEP é obrigatório',
-                    placeholder: 'Digite seu CEP' , 
                     value: '',
+                    placeholder: 'Digite seu cep',
+                    errorMessage: 'O cep é obrigatório',
                     label: 'CEP*',
                     valid: true,
                     isValid: () => {
@@ -160,9 +202,9 @@ export default {
                     }
                 },
                 city: {
-                    errorMessage: 'O Cidade é obrigatório',
-                    placeholder: 'Digite seu Cidade' , 
                     value: '',
+                    placeholder: 'Digite sua cidade',
+                    errorMessage: 'A cidade é obrigatória',
                     label: 'Cidade*',
                     valid: true,
                     isValid: () => {
@@ -170,9 +212,9 @@ export default {
                     }
                 },
                 street: {
-                    errorMessage: 'O Cidade é obrigatório',
-                    placeholder: 'Digite seu Cidade' , 
                     value: '',
+                    placeholder: 'Digite sua rua',
+                    errorMessage: 'A rua é obrigatória',
                     label: 'Rua*',
                     valid: true,
                     isValid: () => {
@@ -180,46 +222,79 @@ export default {
                     }
                 },
                 number: {
-                    errorMessage: 'O Cidade é obrigatório',
-                    placeholder: 'Digite seu Cidade' , 
                     value: '',
+                    placeholder: 'Digite o número',
+                    errorMessage: 'O número é obrigatório',
                     label: 'Número*',
                     valid: true,
                     isValid: () => {
                         this.formData.number.valid = !!this.formData.number.value.length;
                     }
-                },
-                
+                }
             },
-            AddressModal: false,
+            showAddressModal: false,
+            showInvalidAddressModal: false,
+            showSuccessModal: false,
             deliveryType: 'store',
+            paymentType: 'credit-card',
             savedAddress: false
-        }
-    },  
+        };
+    },
     computed: {
         isAddressFormValid() {
-            let isValid = true
+            let isValid = true;
             isValid &= this.formData.cep.valid;
             isValid &= this.formData.city.valid;
             isValid &= this.formData.street.valid;
             isValid &= this.formData.number.valid;
             return isValid;
         },
+        isUserFormDataValid() {
+            let isValid = true;
+            isValid &= this.formData.cellphone.valid;
+            isValid &= this.formData.name.valid;
+            return isValid;
+        },
         isDeliveryType() {
-            return this.deliveryType === 'delivery'
+            return this.deliveryType === 'delivery';
         },
-        hasAddressInfo() {  
-            return this.formData.cep.value || this.formData.city.value || this.formData.street.value || this.formData.number.value
+        hasAddressInfo() {
+            return (
+                this.formData.cep.value ||
+                this.formData.city.value ||
+                this.formData.street.value ||
+                this.formData.number.value
+            );
         },
-        addresButtonLabel() {
-            return this.hasAddressInfo ? 'Editar endereço' : 'Adicionar Endereço'
+        addressButtonLabel() {
+            return this.hasAddressInfo ? 'Editar endereço' : 'Adicionar Endereço';
+        },
+        orderTextWhatsApp() {
+            let text = `
+              Cliente: ${this.formData.name.value}
+              Contato: ${this.formData.cellphone.value}
+              Pedido:
+              ${this.$store.state.cartList.map((item) => {
+                  return `
+                  ${item.quantity}x ${item.name}
+                  Obs: ${item.observations}  
+                `;
+              })}
+            `;
+
+            text = window.encodeURIComponent(text);
+            return text;
         }
-    },  
+    },
     methods: {
         triggerValidations() {
             this.formData.name.isValid();
             this.formData.cellphone.isValid();
-        },  
+            if (this.isDeliveryType) {
+                this.triggerAddressFormValidations();
+                this.showInvalidAddressModal = !this.isAddressFormValid;
+            }
+        },
         triggerAddressFormValidations() {
             this.formData.cep.isValid();
             this.formData.city.isValid();
@@ -228,22 +303,31 @@ export default {
         },
         orderItens() {
             this.triggerValidations();
+            if (!this.isUserFormDataValid || !this.isAddressFormValid) return;
+            this.showSuccessModal = true;
+            const phone = '5543999310720';
+            window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${this.orderTextWhatsApp}`);
         },
-        showAddressModal() {
-            this.AddressModal = true;
+        onShowAddressModal() {
+            this.showAddressModal = true;
         },
-        hideShowModal() {
-            this.AddressModal = false
+        hideAddressModal() {
+            this.showAddressModal = false;
+        },
+        hideSuccessModal() {
+            this.$store.dispatch('clearCart');
+            this.$router.push({ name: 'Home' });
         },
         validateAddressForm() {
             this.triggerAddressFormValidations();
-            if(!this.isAddressFormValid) return;
-            this.savedAddress = false
-            this.showAddressModal = false
+            if (!this.isAddressFormValid) return;
+            this.savedAddress = true;
+            this.showAddressModal = false;
+        },
+        hideInvalidAddressModal() {
+            this.showInvalidAddressModal = false;
         }
-    },
-    components: {
-        Modal
     }
-}
+};
 </script>
+

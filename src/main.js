@@ -20,7 +20,9 @@ import {
 	faMinus,
 	faCartShopping,
 	faX,
-	faArrowLeft
+	faArrowLeft,
+	faCircleExclamation,
+	faCheck
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -34,8 +36,9 @@ library.add(
 	faMinus,
 	faCartShopping,
 	faX,
-	faArrowLeft
-
+	faArrowLeft,
+	faCircleExclamation,
+	faCheck
 );
 
 

@@ -3,7 +3,7 @@
         <div class="h-full">
             <RouterLink to="/" class="font-bold text-xl md:hidden"><font-awesome-icon icon="fa-arrow-left" class=" fa-lg"/> Voltar</RouterLink>
             <h2 class="font-bold text-2xl my-8">Seu Pedido</h2>
-            <p v-if="hasNoItem">Seu Carrinho ainda está vazio</p>
+            <p v-if="!cartList.length">Seu Carrinho ainda está vazio</p>
             <transition-group name="list" tag="div" class="overflow-y-auto h-3/5 mb-9">
                 <CartItem  v-for="item in cartList" :key="item.id" :item="item" />
             </transition-group>
@@ -11,7 +11,7 @@
                 <span class="text-lg font-semibold mr-2">Total:</span>
                 <span class="text-lg font-semibold text-secondary-200">R$ {{ formatPrice(getCartTotal) }}</span>
             </div>
-            <button @click="goToPayment" class="w-full mt-12 p-3 bg-primary-500 rounded-lg  text-white font-medium" >Finalizar Compra</button>
+            <button v-if="cartList.length && !isPaymentScreen" @click="goToPayment" class="w-full mt-12 p-3 bg-primary-500 rounded-lg  text-white font-medium" >Finalizar Compra</button>
         </div>
     </div>
 </template>
@@ -46,8 +46,8 @@ export default {
         cartList() {
             return this.$store.state.cartList;
         },
-        hasNoItem() {
-            return this.cartList.length
+        isPaymentScreen() {
+            return  this.$route.name === 'Payment'
         }
     }
 }
